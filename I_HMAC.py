@@ -8,6 +8,7 @@ def show_hash(hash_name, hash_algorithm, data, key):
     result = h.finalize()
     print(f"HMAC-{hash_name}: {binascii.b2a_hex(result).decode()} {binascii.b2a_base64(result).decode()}")
 
+# Crear un analizador de argumentos
 parser = argparse.ArgumentParser(description="Calculate HMAC hash for a given input and key.")
 parser.add_argument("data", type=str, help="Input data")
 parser.add_argument("key", type=str, help="HMAC key")
@@ -17,15 +18,18 @@ parser.add_argument("--hash", type=str, default="SHA256", help="Hash algorithm (
 args = parser.parse_args()
 
 try:
-
+    # Convertir los datos de entrada y la clave en bytes
     data = args.data.encode()
     key = args.key.encode()
+
 
     print("Data:", args.data)
     print(" Hex:", binascii.b2a_hex(data).decode())
     print("Key:", args.key)
     print(" Hex:", binascii.b2a_hex(key).decode())
     print()
+
+
     if args.hash == "MD5":
         show_hash("MD5", hashes.MD5(), data, key)
     elif args.hash == "SHA1":
@@ -41,3 +45,4 @@ try:
 
 except Exception as e:
     print(e)
+
